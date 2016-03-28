@@ -124,16 +124,31 @@ describe('ShoppingList', function(){
 			var apple = new ShoppingListItem('dark green', 'sour');
 			expect(basket.addItem(orange).length).to.equal(1);
 			expect(basket.addItem(apple).length).to.equal(2);
-			expect(basket.removeItem()).to.equal(1);
+			expect(basket.removeItem().length).to.equal(1);
 		});
 
 
-		it('items that are not in the items array should throw an error', function(){
-			expect(basket.removeItem.bind(basket)).to.throw(Error, 'this item is not on the list');
+		it('items are passed in and not a ShoppingListItem item should throw error', function(){
+			expect(basket.removeItem.bind(null, '')).to.throw(Error, 'this item is not in the list');
+			expect(basket.removeItem.bind(null, [])).to.throw(Error, 'this item is not in the list');
+			
+		});
+	});
+
+	describe('render method', function(){
+
+		var basket = new ShoppingList();
+		var grapes = new ShoppingListItem('grapes', 'purple');
+		basket.addItem(grapes);
+
+		it('should have a method called render', function(){
+			expect(basket.render).to.be.a('function');
 		});
 
-		
-		
+		it('should return a html formatted string', function(){
+			expect(basket.render()).to.equal('<ul><li class="completed_false"><span>grapes</span><span>purple</span></li></ul>');
+
+		});
 	});
 
 });

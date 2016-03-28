@@ -1,27 +1,4 @@
-var ShoppingListItem = function(name, description){
-
-	this.name = name;
-	this.description = description;
-	this.is_done = false;
-
-	this.check = function(){
-		this.is_done = true;
-		return this.is_done;
-	};
-	this.uncheck = function(){
-		this.is_done = false;
-		return this.is_done;
-	};
-
-	this.render = function(){
-		var wording = '<li class="completed_false"><span>'+this.name+'</span><span>'+this.description+'</span></li>';
-		return wording;
-	};
-console.log(this.name);
-};
-
-
-var ShoppingList = function(product){
+var ShoppingList = function(){
 
 	this.items = [];
 
@@ -37,19 +14,30 @@ var ShoppingList = function(product){
 	};
 
 	this.removeItem = function(product){
+		if (product === undefined){
+			this.items.pop();
+			return this.items;
+		}
 		if (product instanceof ShoppingListItem){
 			var removed = this.items.indexOf(product);
 			this.items.splice(removed, 1);
 			console.log(this.items);
 			return this.items;
 		}
-		else {
+		else if (!(product instanceof ShoppingListItem)){
+			console.log(product);
 			throw new Error('this item is not in the list');
 		}
 	};
 
-
-
+	this.render = function(){
+		var returnHtml = '<ul>';
+		for (var i = 0; i < this.items.length; i++){
+			returnHtml += this.items[i].render();
+		}
+		returnHtml += '</ul>';
+		return returnHtml;
+	};
 };
 
 
