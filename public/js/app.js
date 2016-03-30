@@ -2,30 +2,23 @@ window.onload = function(){
 
 var basket = new ShoppingList();
 //console.log(basket);
-
 var newContent = basket.render();
-
-
-
-	
-
-
-
-
-
 
 };
 
-function addToShoppingList(){
 
-	console.log('added to shopping list');
+function addToShoppingList(){
+	
+	var content = document.getElementById('content');
 	var name = document.getElementById('name').value;
 	var description = document.getElementById('description').value;
-	console.log(name, description);
-	var shoppingItem = document.createElement('div');
-	shoppingItem.innerHTML = name + description;
-	var content = document.getElementById('content');
-	content.appendChild(shoppingItem);
-	
-	
+	var newBasket = new ShoppingListItem(name, description);
+	var basket = new ShoppingList();
+	basket.addItem(newBasket);
+	var output = basket.render();
+	content.innerHTML += output;
+		
 }
+	
+	
+

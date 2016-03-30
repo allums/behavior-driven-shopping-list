@@ -5,7 +5,7 @@ var ShoppingList = function(){
 	this.addItem = function(product){
 		if (product instanceof ShoppingListItem) {
 			this.items.push(product);
-			console.log(this.items);
+			console.log("Items Array", this.items);
 			return this.items;
 		}
 		else {
